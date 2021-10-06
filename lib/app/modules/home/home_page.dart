@@ -1,11 +1,11 @@
+import 'package:catalogo/app/modules/home/home_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:slidy_testes/app/modules/home/home_store.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  HomePage({this.title = "Home"});
 
   @override
   _HomePageState createState() => _HomePageState();
