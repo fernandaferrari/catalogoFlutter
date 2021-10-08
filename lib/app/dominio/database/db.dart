@@ -1,4 +1,4 @@
-import 'package:catalogo/database/script_database.dart';
+import 'package:catalogo/app/dominio/database/script_database.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
