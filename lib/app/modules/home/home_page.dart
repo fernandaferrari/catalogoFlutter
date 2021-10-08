@@ -4,28 +4,31 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-  HomePage({this.title = "Home"});
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends ModularState<HomePage, HomeStore> {
+  final store = Modular.get<HomeStore>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Counter'),
+        title: Text('Catalogo'),
       ),
       body: Observer(
-        builder: (context) => Text('${store.counter}'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          store.increment();
+        builder: (_) {
+          var produto = store.lista!.value;
+          return ListView.builder(
+            itemCount: produto!.length,
+            itemBuilder: (ctx, i) {
+              return ListTile(
+                title: Text(produto[i].name),
+              );
+            },
+          );
         },
-        child: Icon(Icons.add),
       ),
     );
   }

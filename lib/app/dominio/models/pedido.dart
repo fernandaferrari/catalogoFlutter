@@ -1,4 +1,4 @@
-import 'package:catalogo/app/shared/models/carrinho.dart';
+import 'package:catalogo/app/dominio/models/carrinho.dart';
 
 class Pedido {
   final String id;

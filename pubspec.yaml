@@ -37,8 +37,9 @@ dependencies:
   flutter_modular: 
   mobx: ^2.0.4
   flutter_mobx: ^2.0.2
-  dio:
+  dio: ^4.0.0
   http:
+  sqflite:
 
 dev_dependencies:
   flutter_test:
@@ -54,8 +55,19 @@ dev_dependencies:
   flutter_modular_test:
   build_runner: 
 
+  #flutter_laucher_Icons:
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+# flutter_icons:
+#   android: true
+#   ios: true
+#   image_path: "dev_assets/image"
+#   adaptive_icon_background: "#1919119"
+#   adaptive_icon_foreground: "dev_assets/image-adaptive"
+#CRIAR DIR DEV_ASSET E INCLUIR ARQUIVO PNG E -ADAPTIVE.PNG
+#RODAR FLUTTER PUB RUN FLUTTER_LAUCHER_ICONS:MAIN
 
 # The following section is specific to Flutter.
 flutter:
