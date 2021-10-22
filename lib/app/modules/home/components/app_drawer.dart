@@ -1,5 +1,6 @@
 import 'package:catalogo/app/utils/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -16,7 +17,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.shop),
             title: Text('Loja'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.HOME);
+              Modular.to.pushNamed("/");
             },
           ),
           Divider(),
@@ -24,7 +25,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.payment),
             title: Text('Pedidos Finalizados'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.PEDIDOS);
+              Modular.to.pushNamed("/pedidos");
             },
           ),
           Divider(),
@@ -32,7 +33,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.my_library_add_sharp),
             title: Text('Gerenciar Produtos'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.GERENCIAR);
+              Modular.to.pushNamed("/gerenciar/");
             },
           ),
         ],

@@ -10,7 +10,7 @@ class HomeController = _HomeControllerBase with _$HomeController;
 abstract class _HomeControllerBase with Store {
   late ProdutoService? service;
 
-  _HomeControllerBase(this.service, this.produto) {
+  _HomeControllerBase(this.service) {
     init();
   }
 
@@ -18,7 +18,7 @@ abstract class _HomeControllerBase with Store {
   List<Produto>? produtos;
 
   @observable
-  Produto produto;
+  late Produto produto;
 
   @action
   Future init() async {

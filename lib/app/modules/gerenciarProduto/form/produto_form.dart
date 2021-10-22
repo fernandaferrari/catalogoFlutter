@@ -1,4 +1,4 @@
-import 'package:catalogo/app/modules/gerenciarProduto/form/custom_text_field.dart';
+import 'package:catalogo/app/modules/gerenciarProduto/components/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo/app/services/produto_service.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +75,6 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
 
   @override
   Widget build(BuildContext context) {
-    final categorias = Provider.of<ProdutoService>(context);
     String label;
     String descText;
     int line;
@@ -155,7 +154,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
                 onSaved: (category) =>
                     _formData['category_id'] = int.parse(_itemSelecionado),
                 hintText: "Selecione Categoria",
-                options: categorias.teste,
+                options: ['1', '2'],
                 value: _itemSelecionado,
                 onChanged: (category) {
                   dropDownItemSelected(category!);
