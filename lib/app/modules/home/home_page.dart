@@ -1,42 +1,187 @@
-import 'package:catalogo/app/modules/home/components/home_produto_component.dart';
-import 'package:catalogo/app/modules/home/home_store.dart';
-import 'package:catalogo/app/shared/app_widget/app_drawer.dart';
+import 'package:catalogo/app/modules/categoria/categoria_screen.dart';
+import 'package:catalogo/app/modules/home/components/bolsa_widget.dart';
+import 'package:catalogo/app/modules/home/home_controller.dart';
+import 'package:catalogo/app/services/carrinho_service.dart';
+import 'package:catalogo/app/services/produto_service.dart';
+import 'package:catalogo/app/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'components/app_drawer.dart';
+
+enum FilterOptions {
+  Favorite,
+  All,
+  Category,
+}
 
 class HomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeStore> {
+class _HomePageState extends ModularState<HomePage, HomeController> {
+  //use 'controller' variable to access controller
+
+  bool showFavoriteOnly = false;
+  bool _isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Catalogo')),
+      appBar: AppBar(
+        title: Text('Catálogo'),
+        actions: [
+          // Observer(
+          //   builder: (_) => BolsaWidget(
+          //     value: "1",
+          //     child: IconButton(
+          //       onPressed: () {
+          //         Navigator.of(context).pushNamed(AppRoutes.CARRINHO);
+          //       },
+          //       icon: Icon(Icons.shopping_cart),
+          //     ),
+          //   ),
+          // ),
+          PopupMenuButton(
+            onSelected: (selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorite) {
+                  showFavoriteOnly = true;
+                } else if (selectedValue == FilterOptions.All) {
+                  showFavoriteOnly = false;
+                  controller.produtos;
+                } else if (selectedValue == FilterOptions.Category) {
+                  showFavoriteOnly = false;
+                }
+              });
+            },
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              // ignore: prefer_const_constructors
+              PopupMenuItem(
+                  child: Text('Somente Favoritos'),
+                  value: FilterOptions.Favorite),
+              // ignore: prefer_const_constructors
+              PopupMenuItem(
+                child: Text('Todos'),
+                value: FilterOptions.All,
+              ),
+              // ignore: prefer_const_constructors
+              // PopupMenuItem(
+              //   child: Text('Categoria'),
+              //   value: FilterOptions.Category,
+              //   onTap: () => showDialog(
+              //     context: context,
+              //     builder: (_) => ChangeNotifierProvider<ProdutoService>.value(
+              //       value: categoria,
+              //       child: CategoriaScreen(),
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ],
+      ),
+      body: Observer(
+        builder: (_) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              height: 30,
+              child: Card(
+                child: TextField(
+                  onChanged: (value) {},
+                  decoration: InputDecoration(
+                    labelText: 'Buscar por nome de produto',
+                    suffixIcon: Icon(Icons.search),
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              child: Expanded(
+                child: Observer(
+                  builder: (_) {
+                    if (controller.produtos == null) {
+                      return Center(
+                        child: FloatingActionButton(
+                          onPressed: () {},
+                          child: Text('Tente novamente!'),
+                        ),
+                      );
+                    }
+
+                    if (controller.produtos!.length == 0) {
+                      return Center(
+                        child: Text("Nenhum dado encontrado!!"),
+                      );
+                    }
+
+                    return ListView.builder(
+                      itemCount: controller.produtos!.length,
+                      itemBuilder: (context, index) {
+                        var item = controller.produtos![index];
+
+                        return ClipRRect(
+                            child: Card(
+                          elevation: 3,
+                          child: Row(children: [
+                            Expanded(
+                              child: ListTile(
+                                title: GestureDetector(
+                                    child: Text(item.name!,
+                                        style: TextStyle(fontSize: 14))),
+                                leading: Image.network(item.photo!),
+                                horizontalTitleGap: double.minPositive,
+                                subtitle: Text('R\$' + (item.price).toString()),
+                                trailing: CircleAvatar(
+                                  backgroundColor: Colors.blue[100],
+                                  child: IconButton(
+                                    color: Theme.of(context).accentColor,
+                                    onPressed: () {
+                                      // cart.addItem(produto);
+                                      // ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                      //   SnackBar(
+                                      //     content: Text('Produto adicionado ao carrinho!'),
+                                      //     duration: Duration(seconds: 5),
+                                      //     action: SnackBarAction(
+                                      //       label: 'DESFAZER',
+                                      //       onPressed: () {
+                                      //         cart.removeSingleItem((produto.id).toString());
+                                      //       },
+                                      //     ),
+                                      //   ),
+                                      // );
+                                    },
+                                    icon: Icon(Icons.add_shopping_cart_sharp),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(item.isFavorite == 1
+                                  ? Icons.star
+                                  : Icons.star_border),
+                              onPressed: () {
+                                controller.toggleIsFavorite();
+                              },
+                            )
+                          ]),
+                        ));
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       drawer: AppDrawer(),
-      body: HomeProdutoComponente(),
     );
   }
 }
-
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('Catalogo'),
-  //     ),
-  //     body: Observer(
-  //       builder: (_) {
-  //         var produto = store.lista!.value;
-  //         return ListView.builder(
-  //           itemCount: produto!.length,
-  //           itemBuilder: (ctx, i) {
-  //             return ListTile(
-  //               title: Text(produto[i].name),
-  //             );
-  //           },
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }

@@ -1,4 +1,4 @@
-package br.com.fernanda.teste.catalogo
+package com.example.catalogo
 
 import io.flutter.embedding.android.FlutterActivity
 
