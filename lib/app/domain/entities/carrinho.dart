@@ -1,6 +1,6 @@
 class CarrinhoItens {
-  final String id;
-  final String produtoId;
+  final int id;
+  final int produtoId;
   final String name;
   final int quantity;
   final num price;

@@ -32,17 +32,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: Text('Catálogo'),
         actions: [
-          // Observer(
-          //   builder: (_) => BolsaWidget(
-          //     value: "1",
-          //     child: IconButton(
-          //       onPressed: () {
-          //         Navigator.of(context).pushNamed(AppRoutes.CARRINHO);
-          //       },
-          //       icon: Icon(Icons.shopping_cart),
-          //     ),
-          //   ),
-          // ),
+          Observer(
+            builder: (_) => BolsaWidget(
+              value: controller.cartService!.itemsCount.toString(),
+              child: IconButton(
+                onPressed: () {
+                  Modular.to.pushNamed('/carrinho');
+                },
+                icon: Icon(Icons.shopping_cart),
+              ),
+            ),
+          ),
           PopupMenuButton(
             onSelected: (selectedValue) {
               setState(() {
@@ -114,7 +114,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       );
                     }
 
-                    if (controller.produtos!.length == 0) {
+                    if (controller.produtos!.isEmpty) {
                       return Center(
                         child: Text("Nenhum dado encontrado!!"),
                       );
@@ -142,20 +142,25 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                   child: IconButton(
                                     color: Theme.of(context).accentColor,
                                     onPressed: () {
+                                      controller.addCarrinho(item);
                                       // cart.addItem(produto);
-                                      // ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                                      // ScaffoldMessenger.of(context).showSnackBar(
-                                      //   SnackBar(
-                                      //     content: Text('Produto adicionado ao carrinho!'),
-                                      //     duration: Duration(seconds: 5),
-                                      //     action: SnackBarAction(
-                                      //       label: 'DESFAZER',
-                                      //       onPressed: () {
-                                      //         cart.removeSingleItem((produto.id).toString());
-                                      //       },
-                                      //     ),
-                                      //   ),
-                                      // );
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Produto adicionado ao carrinho!'),
+                                          duration: Duration(seconds: 5),
+                                          action: SnackBarAction(
+                                            label: 'DESFAZER',
+                                            onPressed: () {
+                                              controller.removeUmItem(
+                                                  (item.id).toString());
+                                            },
+                                          ),
+                                        ),
+                                      );
                                     },
                                     icon: Icon(Icons.add_shopping_cart_sharp),
                                   ),

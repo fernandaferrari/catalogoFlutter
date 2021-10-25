@@ -50,10 +50,7 @@ class CartItemsWidget extends StatelessWidget {
           ),
         );
       },
-      onDismissed: (_) {
-        Provider.of<CarrinhoService>(context, listen: false)
-            .removeItem(cartItem.produtoId.toString());
-      },
+      onDismissed: (_) {},
       child: Card(
         margin: EdgeInsets.symmetric(
           horizontal: 15,
@@ -64,13 +61,6 @@ class CartItemsWidget extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               backgroundImage: NetworkImage(cartItem.photo),
-              //child: Text('${cartItem.price}'),
-              // backgroundColor: Colors.white,
-              // child: Padding(
-              //     padding: EdgeInsets.all(2),
-              //     child: FittedBox(
-              //       child: Image.network(cartItem.photo),
-              //     )),
             ),
             title: Text(cartItem.name),
             subtitle: Text('Total: R\$ ${cartItem.price * cartItem.quantity}'),

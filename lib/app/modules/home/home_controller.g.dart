@@ -69,6 +69,28 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic addCarrinho(dynamic produto) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.addCarrinho');
+    try {
+      return super.addCarrinho(produto);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeUmItem(dynamic id) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.removeUmItem');
+    try {
+      return super.removeUmItem(id);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 produtos: ${produtos},

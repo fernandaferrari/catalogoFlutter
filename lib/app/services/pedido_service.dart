@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class PedidoService with ChangeNotifier {
-  final repository = PedidoRepositoryImpl();
+  PedidoRepositoryImpl repository;
+
+  PedidoService(this.repository);
 
   List<Pedido> _items = [];
 
@@ -20,42 +22,47 @@ class PedidoService with ChangeNotifier {
     return _items.length;
   }
 
-  Future<void> addPedido(CarrinhoService cart) async {
-    final date = DateTime.now();
-    final response = await http.post(
-      Uri.parse('${Constants.PEDIDO_BASE_URL}.json'),
-      body: jsonEncode(
-        {
-          'total': cart.totalAmount,
-          'date': date.toIso8601String(),
-          'products': cart.items.values
-              .map((cartItem) => {
-                    'id': cartItem.id,
-                    'productId': cartItem.produtoId,
-                    'title': cartItem.name,
-                    'quantity': cartItem.quantity,
-                    'price': cartItem.price,
-                    'photo': cartItem.photo
-                  })
-              .toList(),
-        },
-      ),
-    );
-
-    final id = jsonDecode(response.body)['name'];
-    _items.insert(
-      0,
-      Pedido(
-        id: id,
-        total: cart.totalAmount,
-        date: DateTime.now(),
-        produtos: cart.items.values.toList(),
-      ),
-    );
-    notifyListeners();
+  Future addPedido(cart) async {
+    await repository.save(cart);
   }
 
-  Future<void> loadPedidos() async {
+  // Future addPedido(cart) async {
+  //   final date = DateTime.now();
+  //   final response = await http.post(
+  //     Uri.parse('${Constants.PEDIDO_BASE_URL}.json'),
+  //     body: jsonEncode(
+  //       {
+  //         'total': cart.totalAmount,
+  //         'date': date.toIso8601String(),
+  //         'products': cart.items.values
+  //             .map((cartItem) => {
+  //                   'id': cartItem.id,
+  //                   'productId': cartItem.produtoId,
+  //                   'title': cartItem.name,
+  //                   'quantity': cartItem.quantity,
+  //                   'price': cartItem.price,
+  //                   'photo': cartItem.photo
+  //                 })
+  //             .toList(),
+  //       },
+  //     ),
+  //   );
+
+  //   final id = jsonDecode(response.body)['name'];
+  //   _items.insert(
+  //     0,
+  //     Pedido(
+  //       id: id,
+  //       total: cart.totalAmount,
+  //       date: DateTime.now(),
+  //       id_carrinho: cart.id,
+  //       produtos: cart.items.values.toList(),
+  //     ),
+  //   );
+  //   notifyListeners();
+  // }
+
+  Future loadPedidos() async {
     _items = await repository.AllPedidos();
     notifyListeners();
   }

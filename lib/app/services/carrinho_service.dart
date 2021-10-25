@@ -2,9 +2,14 @@ import 'dart:math';
 
 import 'package:catalogo/app/domain/entities/carrinho.dart';
 import 'package:catalogo/app/domain/entities/produto.dart';
+import 'package:catalogo/app/infra/repositories_impl/carrinho_repository_impl.dart';
 import 'package:flutter/material.dart';
 
 class CarrinhoService with ChangeNotifier {
+  CarrinhoRepository repository;
+
+  CarrinhoService(this.repository);
+
   Map<String, CarrinhoItens> _items = {};
 
   Map<String, CarrinhoItens> get items {
@@ -41,8 +46,8 @@ class CarrinhoService with ChangeNotifier {
         //Adiciona o primeiro item
         (produto.id).toString(),
         () => CarrinhoItens(
-            id: Random().nextDouble().toString(),
-            produtoId: (produto.id).toString(),
+            id: Random().nextInt(1000),
+            produtoId: (produto.id!).toInt(),
             name: produto.name!,
             quantity: 1,
             price: produto.price!,

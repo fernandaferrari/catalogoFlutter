@@ -1,6 +1,9 @@
+import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/components/custom_text_field.dart';
+import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo/app/services/produto_service.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart' as urlValida;
 
@@ -9,23 +12,18 @@ class ProdutoFormulario extends StatefulWidget {
   State<ProdutoFormulario> createState() => _ProdutoFormularioState();
 }
 
-class _ProdutoFormularioState extends State<ProdutoFormulario> {
+class _ProdutoFormularioState
+    extends ModularState<ProdutoFormulario, GerenciadorProdutoController> {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
-  final _formData = Map<String, Object>();
+  final _formData = Produto();
   var _itemSelecionado;
 
   @override
   void initState() {
     super.initState();
     _imageUrlController.addListener(updateImage);
-    Provider.of<ProdutoService>(
-      context,
-      listen: false,
-    ).loadCategoria().then((value) {
-      setState(() {});
-    });
   }
 
   @override
@@ -48,10 +46,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
     _formKey.currentState?.save();
 
     try {
-      // await Provider.of<ProdutoService>(
-      //   context,
-      //   listen: false,
-      // ).saveProduct(_formData);
+      await controller.service.repositoryProduto.save(_formData);
     } catch (e) {
       await showDialog<void>(
         context: context,
@@ -106,7 +101,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
               CustomTextField(
                   label: 'Nome do Produto',
                   descText: 'Digite o nome do Produto...',
-                  onSaved: (name) => _formData['name'] = name ?? '',
+                  onSaved: (name) => _formData.name = name ?? '',
                   validator: (text) {
                     if (text == null || text.isEmpty) {
                       return 'O campo não pode ser nulo';
@@ -122,7 +117,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
                   line: 3,
                   tamanho: 250,
                   onSaved: (description) =>
-                      _formData['description'] = description ?? '',
+                      _formData.description = description ?? '',
                   validator: (text) {
                     if (text == null || text.isEmpty) {
                       return 'O campo não pode ser nulo';
@@ -136,7 +131,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
                   label: 'Valor',
                   descText: 'Digite o valor..',
                   onSaved: (price) =>
-                      _formData['price'] = double.parse(price ?? '0.0'),
+                      _formData.price = double.parse(price ?? '0.0'),
                   keyboardType: TextInputType.number,
                   validator: (_price) {
                     final priceString = _price ?? '-1';
@@ -152,7 +147,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
               Divider(),
               CategoriaDropDownInput<String>(
                 onSaved: (category) =>
-                    _formData['category_id'] = int.parse(_itemSelecionado),
+                    _formData.categoryId = int.parse(_itemSelecionado),
                 hintText: "Selecione Categoria",
                 options: ['1', '2'],
                 value: _itemSelecionado,
@@ -176,8 +171,7 @@ class _ProdutoFormularioState extends State<ProdutoFormulario> {
                       descText: 'Cole a URL da imagem...',
                       keyboardType: TextInputType.url,
                       focusNode: _imageUrlFocus,
-                      onSaved: (imageUrl) =>
-                          _formData['imageUrl'] = imageUrl ?? '',
+                      onSaved: (imageUrl) => _formData.photo = imageUrl ?? '',
                       textInputAction: TextInputAction.done,
                       validator: (text) {
                         if (text == null || text.isEmpty) {

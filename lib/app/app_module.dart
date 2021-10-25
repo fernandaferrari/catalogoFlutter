@@ -1,6 +1,8 @@
 import 'package:catalogo/app/app_widget.dart';
-import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produro_module.dart';
+import 'package:catalogo/app/modules/cart/carrinho_module.dart';
+import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_module.dart';
 import 'package:catalogo/app/modules/home/home_module.dart';
+import 'package:catalogo/app/modules/orders/pedido_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -12,8 +14,9 @@ class AppModule extends Module {
     ModuleRoute("/gerenciar",
         module: GerenciadorProdutoModule(),
         transition: TransitionType.rightToLeft),
-    // ModuleRoute("/pedido",
-    //     module: PedidoModule(), transition: TransitionType.fadeIn),
+    ModuleRoute("/carrinho", module: CarrinhoModule()),
+    ModuleRoute("/pedidos",
+        module: PedidoModule(), transition: TransitionType.fadeIn),
   ];
 
   @override

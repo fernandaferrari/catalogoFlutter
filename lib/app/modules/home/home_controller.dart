@@ -1,6 +1,7 @@
-import 'package:catalogo/app/domain/entities/produto.dart';
+import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:mobx/mobx.dart';
 
+import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:catalogo/app/services/produto_service.dart';
 
 part 'home_controller.g.dart';
@@ -9,8 +10,12 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   late ProdutoService? service;
+  late CarrinhoService? cartService;
 
-  _HomeControllerBase(this.service) {
+  _HomeControllerBase(
+    this.service,
+    this.cartService,
+  ) {
     init();
   }
 
@@ -36,5 +41,15 @@ abstract class _HomeControllerBase with Store {
       produto.isFavorite = 0;
     }
     produto = produto.copyWith(isFavorite: produto.isFavorite);
+  }
+
+  @action
+  addCarrinho(produto) {
+    cartService!.addItem(produto);
+  }
+
+  @action
+  removeUmItem(id) {
+    cartService!.removeSingleItem(id);
   }
 }

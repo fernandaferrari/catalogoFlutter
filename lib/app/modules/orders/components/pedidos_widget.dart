@@ -20,9 +20,9 @@ class _PedidosWidgetState extends State<PedidosWidget> {
       child: Column(
         children: [
           ListTile(
-            title: Text('R\$ ${widget.pedido.total.toStringAsFixed(2)}'),
+            title: Text('R\$ ${widget.pedido.total!.toStringAsFixed(2)}'),
             subtitle: Text(
-              DateFormat('dd/MM/yyyy hh:mm').format(widget.pedido.date),
+              DateFormat('dd/MM/yyyy hh:mm').format(widget.pedido.date!),
             ),
             trailing: IconButton(
                 onPressed: () {
@@ -38,9 +38,9 @@ class _PedidosWidgetState extends State<PedidosWidget> {
                 horizontal: 15,
                 vertical: 4,
               ),
-              height: widget.pedido.produtos.length * 30.0,
+              height: widget.pedido.produtos!.length * 30.0,
               child: ListView(
-                children: widget.pedido.produtos.map((produto) {
+                children: widget.pedido.produtos!.map((produto) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

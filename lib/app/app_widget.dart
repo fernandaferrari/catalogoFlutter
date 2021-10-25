@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Catalogo',
-      home: HomePage(),
+      theme: ThemeData(primaryColor: Colors.purple),
     ).modular();
   }
 }
