@@ -1,10 +1,9 @@
 import 'package:catalogo/app/domain/entities/produto.dart';
+import 'package:catalogo/app/infra/utils/err/http_exception.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/form/produto_form.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_controller.dart';
-import 'package:catalogo/app/modules/home/components/app_drawer.dart';
+import 'package:catalogo/app/shared/app_drawer.dart';
 import 'package:catalogo/app/services/produto_service.dart';
-import 'package:catalogo/app/utils/app_routes.dart';
-import 'package:catalogo/app/utils/err/http_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

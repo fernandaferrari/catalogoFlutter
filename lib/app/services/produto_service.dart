@@ -9,7 +9,6 @@ import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:catalogo/app/infra/repositories_impl/categoria_repository_impl.dart';
 import 'package:catalogo/app/infra/repositories_impl/produto_repository_impl.dart';
-import 'package:catalogo/app/utils/json/constants.dart';
 
 class ProdutoService with ChangeNotifier {
   //Inicia váriaveis repository

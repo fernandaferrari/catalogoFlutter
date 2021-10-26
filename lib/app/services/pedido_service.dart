@@ -3,7 +3,6 @@ import 'package:catalogo/app/domain/entities/carrinho.dart';
 import 'package:catalogo/app/domain/entities/pedidos.dart';
 import 'package:catalogo/app/infra/repositories_impl/pedido_repository_impl.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
-import 'package:catalogo/app/utils/json/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

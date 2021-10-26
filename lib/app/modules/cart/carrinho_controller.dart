@@ -1,3 +1,4 @@
+import 'package:catalogo/app/domain/entities/pedidos.dart';
 import 'package:catalogo/app/services/pedido_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -31,5 +32,7 @@ abstract class _CarrinhoControllerBase with Store {
   }
 
   @action
-  criarPedido() {}
+  criarPedido() {
+    //var item = Pedido(total: service.totalAmount, date: DateTime.now(), id_carrinho: );
+  }
 }

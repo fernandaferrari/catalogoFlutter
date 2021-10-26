@@ -8,7 +8,6 @@ import 'package:sqflite/sqflite.dart';
 
 import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:catalogo/app/domain/interfaces/produto_repository.dart';
-import 'package:catalogo/app/utils/json/constants.dart';
 
 class ProdutoRepositoryImpl implements IProdutoRepository {
   List<Produto> _items = [];

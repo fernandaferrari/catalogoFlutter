@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:catalogo/app/domain/entities/categoria.dart';
-import 'package:catalogo/app/utils/json/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 

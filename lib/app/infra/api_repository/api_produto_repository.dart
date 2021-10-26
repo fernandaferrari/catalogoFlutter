@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:catalogo/app/domain/entities/produto.dart';
-import 'package:catalogo/app/utils/json/constants.dart';
 import 'package:http/http.dart';
 
 class ApiProdutoRepository {

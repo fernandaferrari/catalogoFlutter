@@ -3,11 +3,10 @@ import 'package:catalogo/app/modules/home/components/bolsa_widget.dart';
 import 'package:catalogo/app/modules/home/home_controller.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:catalogo/app/services/produto_service.dart';
-import 'package:catalogo/app/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'components/app_drawer.dart';
+import '../../shared/app_drawer.dart';
 
 enum FilterOptions {
   Favorite,

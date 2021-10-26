@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/domain/interfaces/categoria_repository.dart';
 import 'package:catalogo/app/infra/database/sqlite/connection.dart';
-import 'package:catalogo/app/utils/json/constants.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:catalogo/app/infra/utils/json/constants.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriaRepositoryImpl implements ICategoriaRepository {

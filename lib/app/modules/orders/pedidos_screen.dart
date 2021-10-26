@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:catalogo/app/domain/entities/pedidos.dart';
-import 'package:catalogo/app/modules/home/components/app_drawer.dart';
+import 'package:catalogo/app/shared/app_drawer.dart';
 import 'package:catalogo/app/services/pedido_service.dart';
 
 class PedidosScreen extends StatefulWidget {
