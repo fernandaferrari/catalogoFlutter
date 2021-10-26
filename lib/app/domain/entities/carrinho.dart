@@ -13,4 +13,8 @@ class CarrinhoItens {
       required this.quantity,
       required this.price,
       required this.photo});
+
+  get idCarrinho {
+    return id;
+  }
 }

@@ -21,8 +21,10 @@ class PedidoService with ChangeNotifier {
     return _items.length;
   }
 
-  Future addPedido(cart) async {
-    await repository.save(cart);
+  Future addPedido(total, id) async {
+    var pedido = Pedido(total: total, id_carrinho: id);
+
+    await repository.save(pedido);
   }
 
   // Future addPedido(cart) async {

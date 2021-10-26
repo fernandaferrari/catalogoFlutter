@@ -16,6 +16,15 @@ class CarrinhoService with ChangeNotifier {
     return {..._items};
   }
 
+  int get idCarrinho {
+    int id = 0;
+    _items.forEach((key, cartItem) {
+      id = cartItem.id;
+    });
+
+    return id;
+  }
+
   int get itemsCount {
     return _items.length;
   }

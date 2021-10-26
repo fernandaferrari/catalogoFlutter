@@ -33,6 +33,10 @@ abstract class _CarrinhoControllerBase with Store {
 
   @action
   criarPedido() {
-    //var item = Pedido(total: service.totalAmount, date: DateTime.now(), id_carrinho: );
+    var total = service.totalAmount;
+    var id = service.idCarrinho;
+    print(total);
+    print(id);
+    pedidoService.addPedido(total, id);
   }
 }

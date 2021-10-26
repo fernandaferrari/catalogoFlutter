@@ -33,7 +33,8 @@ class PedidoRepositoryImpl implements IPedidoRepository {
   save(Pedido pedido) async {
     var _db = await Connection.instance.database;
     var sql = 'INSERT INTO pedido(total, id_carrinho, date) VALUES (?,?,?)';
-    _db.rawInsert(sql, [pedido.total, pedido.produtos, pedido.date]);
+    _db.rawInsert(
+        sql, [pedido.total, pedido.id_carrinho, DateTime.now().toString()]);
   }
 }
 

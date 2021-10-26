@@ -1,6 +1,5 @@
 import 'package:catalogo/app/domain/entities/pedidos.dart';
 import 'package:catalogo/app/modules/cart/carrinho_controller.dart';
-import 'package:catalogo/app/modules/cart/components/cart_item_widget.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:catalogo/app/services/pedido_service.dart';
 import 'package:flutter/material.dart';
@@ -60,24 +59,86 @@ class _CartPageState extends ModularState<CartPage, CarrinhoController> {
               height: 10,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: controller.service.itemsCount,
-                itemBuilder: (ctx, i) {
-                  if (controller.carrinho == null) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+              child: Observer(builder: (_) {
+                if (controller.carrinho == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-                  if (controller.carrinho!.isEmpty) {
-                    return Center(
-                      child: Text("Nenhum dado encontrado!!"),
-                    );
-                  }
+                if (controller.carrinho!.isEmpty) {
+                  return Center(
+                    child: Text("Nenhum dado encontrado!!"),
+                  );
+                }
 
-                  return CartItemsWidget(controller.carrinho![i]);
-                },
-              ),
+                return ListView.builder(
+                  itemCount: controller.service.itemsCount,
+                  itemBuilder: (ctx, i) {
+                    var item = controller.carrinho![i];
+                    return Dismissible(
+                      key: ValueKey(item.id),
+                      background: Container(
+                        color: Theme.of(context).errorColor,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 20),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 4,
+                        ),
+                      ),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (_) {
+                        return showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text('Tem certeza?'),
+                            content: Text('Deseja remover o item do carrinho?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop(false);
+                                },
+                                child: Text('Não'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop(true);
+                                },
+                                child: Text('Sim'),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      onDismissed: (_) {},
+                      child: Card(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 4,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(9),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(item.photo),
+                            ),
+                            title: Text(item.name),
+                            subtitle: Text(
+                                'Total: R\$ ${item.price * item.quantity}'),
+                            trailing: Text('${item.quantity}x'),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
             Center(
               child: Text('<-- Arraste para o lado para excluir um item'),
