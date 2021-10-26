@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:catalogo/app/infra/api_repository/api_categoria_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/domain/entities/produto.dart';
-import 'package:catalogo/app/infra/repositories_impl/categoria_repository_impl.dart';
 import 'package:catalogo/app/infra/repositories_impl/produto_repository_impl.dart';
 
 class ProdutoService with ChangeNotifier {
   //Inicia váriaveis repository
   late ProdutoRepositoryImpl repositoryProduto;
-  final repositoryCategoria = CategoriaRepositoryImpl();
+  final repositoryCategoria = ApiCategoriaRepository(Client());
 
   //Inicia váriaveis itens lista
   List<Categoria> _itemCategoria = [];
@@ -40,7 +40,7 @@ class ProdutoService with ChangeNotifier {
   }
 
   Future loadCategoria() async {
-    _itemCategoria = await repositoryCategoria.AllCategorias();
+    _itemCategoria = await repositoryCategoria.AllCategoria();
     notifyListeners();
   }
 

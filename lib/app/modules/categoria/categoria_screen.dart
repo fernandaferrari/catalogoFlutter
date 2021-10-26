@@ -1,8 +1,10 @@
 import 'package:catalogo/app/domain/entities/categoria.dart';
-import 'package:catalogo/app/infra/repositories_impl/categoria_repository_impl.dart';
+import 'package:catalogo/app/infra/api_repository/api_categoria_repository.dart';
+import 'package:catalogo/app/infra/api_repository/api_produto_repository.dart';
 import 'package:catalogo/app/modules/categoria/categoria_item_widget.dart';
 import 'package:catalogo/app/services/produto_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class CategoriaScreen extends StatefulWidget {
@@ -11,13 +13,13 @@ class CategoriaScreen extends StatefulWidget {
 }
 
 class _CategoriaScreenState extends State<CategoriaScreen> {
-  final repository = CategoriaRepositoryImpl();
+  final repository = ApiCategoriaRepository(Client());
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    repository.AllCategorias();
+    repository.AllCategoria();
   }
 
   @override

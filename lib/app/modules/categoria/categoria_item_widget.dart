@@ -1,7 +1,8 @@
 import 'package:catalogo/app/domain/entities/categoria.dart';
-import 'package:catalogo/app/infra/repositories_impl/categoria_repository_impl.dart';
+import 'package:catalogo/app/infra/api_repository/api_categoria_repository.dart';
 import 'package:catalogo/app/services/produto_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class CategoriaItemWidget extends StatefulWidget {
@@ -10,7 +11,7 @@ class CategoriaItemWidget extends StatefulWidget {
 }
 
 class _CategoriaItemWidgetState extends State<CategoriaItemWidget> {
-  final repository = CategoriaRepositoryImpl();
+  final repository = ApiCategoriaRepository(Client());
 
   @override
   Widget build(BuildContext context) {

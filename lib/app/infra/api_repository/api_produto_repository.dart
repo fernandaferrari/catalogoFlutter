@@ -4,12 +4,12 @@ import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:http/http.dart';
 
 class ApiProdutoRepository {
-  List<Produto> _items = [];
   Client client;
 
   ApiProdutoRepository(this.client);
 
   Future<List<Produto>> AllProdutos() async {
+    List<Produto> _items = [];
     final response =
         await client.get(Uri.parse('https://pastebin.com/raw/8t83iHMc'));
     try {
@@ -29,6 +29,4 @@ class ApiProdutoRepository {
     }
     return _items;
   }
-
-  get itensProduto => _items;
 }
