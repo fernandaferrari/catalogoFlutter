@@ -1,4 +1,5 @@
 import 'package:catalogo/app/modules/cart/carrinho_module.dart';
+import 'package:catalogo/app/modules/gerenciarProduto/form/produto_form_module.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_module.dart';
 import 'package:catalogo/app/modules/home/home_module.dart';
 import 'package:catalogo/app/modules/orders/pedido_module.dart';
@@ -17,6 +18,8 @@ class AppModule extends Module {
     ModuleRoute("/carrinho", module: CarrinhoModule()),
     ModuleRoute("/pedidos",
         module: PedidoModule(), transition: TransitionType.fadeIn),
+    ModuleRoute("/formulario",
+        module: ProdutoFormModule(), transition: TransitionType.fadeIn),
   ];
 
   @override

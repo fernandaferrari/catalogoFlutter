@@ -1,5 +1,6 @@
 import 'package:catalogo/app/infra/repositories_impl/produto_repository_impl.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/form/produto_form.dart';
+import 'package:catalogo/app/modules/gerenciarProduto/form/produto_form_module.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_controller.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_page.dart';
 import 'package:catalogo/app/services/produto_service.dart';
@@ -18,6 +19,7 @@ class GerenciadorProdutoModule extends Module {
         ChildRoute(Modular.initialRoute,
             child: (_, args) => GerenciadorProdutoPage(),
             transition: TransitionType.fadeIn),
-        ChildRoute("/formulario", child: (_, args) => ProdutoFormulario()),
+        //ModuleRoute("/formulario", module: ProdutoFormModule()),
+        //ChildRoute("/formulario", child: (_, args) => ProdutoFormulario()),
       ];
 }

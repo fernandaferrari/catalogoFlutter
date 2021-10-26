@@ -69,8 +69,7 @@ class _GerenciadorProdutoPageState
                               icon: Icon(Icons.edit),
                               color: Theme.of(context).primaryColor,
                               onPressed: () {
-                                Modular.to.navigate('/formulario',
-                                    arguments: Produto());
+                                Modular.to.pushNamed("/formulario");
                               },
                             ),
                             IconButton(
