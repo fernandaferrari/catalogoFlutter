@@ -2,6 +2,7 @@ import 'package:catalogo/app/infra/api_repository/api_produto_repository.dart';
 import 'package:catalogo/app/infra/database/sqlite/connection.dart';
 import 'package:catalogo/app/infra/repositories_impl/carrinho_repository_impl.dart';
 import 'package:catalogo/app/infra/repositories_impl/produto_repository_impl.dart';
+import 'package:catalogo/app/modules/home/components/categoria/categoria_screen.dart';
 import 'package:catalogo/app/modules/home/home_controller.dart';
 import 'package:catalogo/app/modules/home/home_page.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
@@ -24,7 +25,8 @@ class HomeModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(Modular.initialRoute,
+        ChildRoute('/',
             child: (_, args) => HomePage(), transition: TransitionType.fadeIn),
+        //ChildRoute('categoria', child: (_, args) => CategoriaScreen(categoria)),
       ];
 }

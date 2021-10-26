@@ -24,9 +24,9 @@ class _GerenciadorProdutoPageState
         title: Center(child: Text('Gerenciar Produtos')),
         actions: [
           IconButton(
-            onPressed: () =>
-                //Modular.to.navigate("/formulario", arguments: Produto()),
-                Modular.to.pushNamed("/formulario"),
+            onPressed: () {
+              Modular.to.pushNamed("/gerenciar/formulario");
+            },
             icon: Icon(Icons.add),
           )
         ],
@@ -69,7 +69,7 @@ class _GerenciadorProdutoPageState
                               icon: Icon(Icons.edit),
                               color: Theme.of(context).primaryColor,
                               onPressed: () {
-                                Modular.to.pushNamed("/formulario");
+                                Modular.to.pushNamed("/gerenciar/formulario");
                               },
                             ),
                             IconButton(

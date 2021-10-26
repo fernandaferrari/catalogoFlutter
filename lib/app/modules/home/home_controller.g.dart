@@ -32,6 +32,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$categoriaAtom = Atom(name: '_HomeControllerBase.categoria');
+
+  @override
+  List<Categoria>? get categoria {
+    _$categoriaAtom.reportRead();
+    return super.categoria;
+  }
+
+  @override
+  set categoria(List<Categoria>? value) {
+    _$categoriaAtom.reportWrite(value, super.categoria, () {
+      super.categoria = value;
+    });
+  }
+
   final _$produtoAtom = Atom(name: '_HomeControllerBase.produto');
 
   @override
@@ -94,6 +109,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 produtos: ${produtos},
+categoria: ${categoria},
 produto: ${produto},
 favorite: ${favorite}
     ''';

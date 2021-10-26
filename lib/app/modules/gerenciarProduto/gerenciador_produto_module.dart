@@ -16,10 +16,9 @@ class GerenciadorProdutoModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(Modular.initialRoute,
+        ChildRoute("/",
             child: (_, args) => GerenciadorProdutoPage(),
             transition: TransitionType.fadeIn),
-        //ModuleRoute("/formulario", module: ProdutoFormModule()),
-        //ChildRoute("/formulario", child: (_, args) => ProdutoFormulario()),
+        ChildRoute("/formulario", child: (_, args) => ProdutoFormulario()),
       ];
 }

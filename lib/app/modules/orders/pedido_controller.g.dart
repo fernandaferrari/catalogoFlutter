@@ -12,13 +12,13 @@ mixin _$PedidoController on _PedidoControllerBase, Store {
   final _$pedidosAtom = Atom(name: '_PedidoControllerBase.pedidos');
 
   @override
-  Future<Pedido>? get pedidos {
+  List<Pedido>? get pedidos {
     _$pedidosAtom.reportRead();
     return super.pedidos;
   }
 
   @override
-  set pedidos(Future<Pedido>? value) {
+  set pedidos(List<Pedido>? value) {
     _$pedidosAtom.reportWrite(value, super.pedidos, () {
       super.pedidos = value;
     });

@@ -1,3 +1,4 @@
+import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -23,11 +24,15 @@ abstract class _HomeControllerBase with Store {
   List<Produto>? produtos;
 
   @observable
+  List<Categoria>? categoria;
+
+  @observable
   late Produto produto;
 
   @action
   Future init() async {
     produtos = await service!.loadProducts();
+    categoria = await service!.loadCategoria();
   }
 
   @computed

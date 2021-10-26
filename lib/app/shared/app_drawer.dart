@@ -25,7 +25,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.payment),
             title: Text('Pedidos Finalizados'),
             onTap: () {
-              Modular.to.pushNamed("/pedidos", arguments: Pedido());
+              Modular.to.pushNamed("/pedidos");
             },
           ),
           Divider(),

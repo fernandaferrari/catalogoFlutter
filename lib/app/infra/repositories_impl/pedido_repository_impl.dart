@@ -11,19 +11,20 @@ class PedidoRepositoryImpl implements IPedidoRepository {
     List<Pedido> pedidos = List.generate(resultado.length, (index) {
       var item = resultado[index];
       return Pedido(
-          id: item['id'],
-          total: item['total'],
-          date: DateTime.parse(item['date']),
-          id_carrinho: item['id'],
-          produtos: (item['products'] as List<dynamic>).map((item) {
-            return CarrinhoItens(
-                id: item['id'],
-                produtoId: item['productId'],
-                name: item['title'],
-                quantity: item['quantity'],
-                price: item['price'],
-                photo: item['photo']!);
-          }).toList());
+        id: item['id'],
+        total: item['total'],
+        date: DateTime.parse(item['date']),
+        id_carrinho: item['id'],
+        // produtos: (item['products'] as List<dynamic>).map((item) {
+        //   return CarrinhoItens(
+        //       id: item['id'],
+        //       produtoId: item['productId'],
+        //       name: item['title'],
+        //       quantity: item['quantity'],
+        //       price: item['price'],
+        //       photo: item['photo']!);
+        // }).toList());
+      );
     });
 
     return pedidos;

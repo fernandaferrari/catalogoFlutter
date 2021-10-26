@@ -1,4 +1,5 @@
 import 'package:catalogo/app/modules/home/components/bolsa_widget.dart';
+import 'package:catalogo/app/modules/home/components/categoria/categoria_screen.dart';
 import 'package:catalogo/app/modules/home/home_controller.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:catalogo/app/services/produto_service.dart';
@@ -65,18 +66,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 child: Text('Todos'),
                 value: FilterOptions.All,
               ),
-              // ignore: prefer_const_constructors
-              // PopupMenuItem(
-              //   child: Text('Categoria'),
-              //   value: FilterOptions.Category,
-              //   onTap: () => showDialog(
-              //     context: context,
-              //     builder: (_) => ChangeNotifierProvider<ProdutoService>.value(
-              //       value: categoria,
-              //       child: CategoriaScreen(),
-              //     ),
-              //   ),
-              // )
+              PopupMenuItem(
+                  child: Text('Categoria'),
+                  value: FilterOptions.Category,
+                  onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => CategoriaScreen(controller.categoria)))
             ],
           ),
         ],

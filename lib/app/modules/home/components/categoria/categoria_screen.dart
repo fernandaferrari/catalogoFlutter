@@ -1,46 +1,46 @@
 import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/infra/api_repository/api_categoria_repository.dart';
 import 'package:catalogo/app/infra/api_repository/api_produto_repository.dart';
-import 'package:catalogo/app/modules/home/components/categoria/categoria_item_widget.dart';
+import 'package:catalogo/app/modules/home/home_controller.dart';
 import 'package:catalogo/app/services/produto_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class CategoriaScreen extends StatefulWidget {
+  List<Categoria>? categoria;
+
+  CategoriaScreen(this.categoria);
+
   @override
   State<CategoriaScreen> createState() => _CategoriaScreenState();
 }
 
-class _CategoriaScreenState extends State<CategoriaScreen> {
-  final repository = ApiCategoriaRepository(Client());
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    repository.AllCategoria();
-  }
-
+class _CategoriaScreenState
+    extends ModularState<CategoriaScreen, HomeController> {
   @override
   Widget build(BuildContext context) {
-    ProdutoService categoria =
-        Provider.of<ProdutoService>(context, listen: false);
-    List<Categoria> list = categoria.itemCategoria;
-
     return AlertDialog(
       title: const Text('Filtro por Categoria'),
       content: Container(
         height: 290,
         width: 290,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: list.length,
-          itemBuilder: (context, index) => ChangeNotifierProvider.value(
-            value: list[index],
-            child: CategoriaItemWidget(),
-          ),
-        ),
+        child: Observer(builder: (_) {
+          return ListView.builder(
+              shrinkWrap: true,
+              itemCount: controller.categoria!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+              });
+        }),
       ),
     );
   }

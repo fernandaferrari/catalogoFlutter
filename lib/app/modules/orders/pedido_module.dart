@@ -13,8 +13,6 @@ class PedidoModule extends Module {
       ];
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute(Modular.initialRoute,
-            child: (_, args) => PedidosScreen(pedido: args.params["produto"]))
-      ];
+  List<ModularRoute> get routes =>
+      [ChildRoute(Modular.initialRoute, child: (_, args) => PedidosScreen())];
 }

@@ -9,18 +9,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
   @override
-  List<ModularRoute> routes = [
-    ModuleRoute(Modular.initialRoute,
-        module: HomeModule(), transition: TransitionType.fadeIn),
-    ModuleRoute("/gerenciar",
-        module: GerenciadorProdutoModule(),
-        transition: TransitionType.rightToLeft),
-    ModuleRoute("/carrinho", module: CarrinhoModule()),
-    ModuleRoute("/pedidos",
-        module: PedidoModule(), transition: TransitionType.fadeIn),
-    ModuleRoute("/formulario",
-        module: ProdutoFormModule(), transition: TransitionType.fadeIn),
-  ];
+  List<Bind> get binds => [];
+
+  @override
+  List<ModularRoute> get routes => [
+        ModuleRoute('/',
+            module: HomeModule(), transition: TransitionType.fadeIn),
+        ModuleRoute("/gerenciar",
+            module: GerenciadorProdutoModule(),
+            transition: TransitionType.rightToLeft),
+        ModuleRoute("/carrinho", module: CarrinhoModule()),
+        ModuleRoute("/pedidos",
+            module: PedidoModule(), transition: TransitionType.fadeIn),
+      ];
 
   @override
   Widget get bootstrap => AppWidget();
