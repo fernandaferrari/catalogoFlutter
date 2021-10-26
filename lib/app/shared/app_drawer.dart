@@ -1,3 +1,4 @@
+import 'package:catalogo/app/domain/entities/pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -24,7 +25,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.payment),
             title: Text('Pedidos Finalizados'),
             onTap: () {
-              Modular.to.pushNamed("/pedidos");
+              Modular.to.pushNamed("/pedidos", arguments: Pedido());
             },
           ),
           Divider(),

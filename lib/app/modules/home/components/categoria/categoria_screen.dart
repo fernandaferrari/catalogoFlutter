@@ -1,7 +1,7 @@
 import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/infra/api_repository/api_categoria_repository.dart';
 import 'package:catalogo/app/infra/api_repository/api_produto_repository.dart';
-import 'package:catalogo/app/modules/categoria/categoria_item_widget.dart';
+import 'package:catalogo/app/modules/home/components/categoria/categoria_item_widget.dart';
 import 'package:catalogo/app/services/produto_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';

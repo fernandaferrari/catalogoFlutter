@@ -1,4 +1,3 @@
-import 'package:catalogo/app/modules/categoria/categoria_screen.dart';
 import 'package:catalogo/app/modules/home/components/bolsa_widget.dart';
 import 'package:catalogo/app/modules/home/home_controller.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
