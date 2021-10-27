@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
+  final String? initialValue;
 
   const CustomTextField({
     Key? key,
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.line,
     this.tamanho,
     this.validator,
+    this.initialValue,
     this.onSaved,
     this.keyboardType,
     this.controller,
@@ -30,6 +32,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       controller: controller == null ? null : controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,

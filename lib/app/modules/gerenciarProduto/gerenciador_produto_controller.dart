@@ -30,11 +30,6 @@ abstract class _GerenciadorProdutoControllerBase with Store {
   categoria() {
     var item = service.itemCategoria;
     List<String> cat = [];
-
-    item.forEach((element) {
-      cat = ['${element.id}'];
-    });
-
     cat = List.generate(item.length, (i) {
       var resultado = item[i];
       return Categoria(id: resultado.id, name: resultado.name).toString();

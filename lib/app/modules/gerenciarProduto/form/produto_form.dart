@@ -28,6 +28,26 @@ class _ProdutoFormularioState
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    if (_formData.id == null) {
+      final arg = ModalRoute.of(context)?.settings.arguments;
+
+      if (arg != null) {
+        final product = arg as Produto;
+        _formData.id = product.id;
+        _formData.name = product.name;
+        _formData.price = product.price;
+        _formData.description = product.description;
+        _formData.photo = product.photo;
+
+        _imageUrlController.text = product.photo.toString();
+      }
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _imageUrlFocus.removeListener(updateImage);
@@ -100,6 +120,7 @@ class _ProdutoFormularioState
             children: [
               Divider(),
               CustomTextField(
+                  initialValue: (_formData.name),
                   label: 'Nome do Produto',
                   descText: 'Digite o nome do Produto...',
                   onSaved: (name) => _formData.name = name ?? '',
@@ -113,10 +134,11 @@ class _ProdutoFormularioState
                   }),
               Divider(),
               CustomTextField(
+                  initialValue: (_formData.description),
                   label: 'Descrição',
                   descText: 'Digite uma descrição...',
                   line: 3,
-                  tamanho: 250,
+                  tamanho: 1000,
                   onSaved: (description) =>
                       _formData.description = description ?? '',
                   validator: (text) {
@@ -129,6 +151,7 @@ class _ProdutoFormularioState
                   }),
               Divider(),
               CustomTextField(
+                  initialValue: (_formData.price).toString(),
                   label: 'Valor',
                   descText: 'Digite o valor..',
                   onSaved: (price) =>
