@@ -9,14 +9,6 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  Computed<int>? _$favoriteComputed;
-
-  @override
-  int get favorite =>
-      (_$favoriteComputed ??= Computed<int>(() => super.favorite,
-              name: '_HomeControllerBase.favorite'))
-          .value;
-
   final _$produtosAtom = Atom(name: '_HomeControllerBase.produtos');
 
   @override
@@ -47,18 +39,18 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$produtoAtom = Atom(name: '_HomeControllerBase.produto');
+  final _$cartAtom = Atom(name: '_HomeControllerBase.cart');
 
   @override
-  Produto get produto {
-    _$produtoAtom.reportRead();
-    return super.produto;
+  Map<String, CarrinhoItens>? get cart {
+    _$cartAtom.reportRead();
+    return super.cart;
   }
 
   @override
-  set produto(Produto value) {
-    _$produtoAtom.reportWrite(value, super.produto, () {
-      super.produto = value;
+  set cart(Map<String, CarrinhoItens>? value) {
+    _$cartAtom.reportWrite(value, super.cart, () {
+      super.cart = value;
     });
   }
 
@@ -73,11 +65,44 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  dynamic toggleIsFavorite() {
+  dynamic toggleIsFavorite(dynamic item) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.toggleIsFavorite');
     try {
-      return super.toggleIsFavorite();
+      return super.toggleIsFavorite(item);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic buscaNome(dynamic text) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.buscaNome');
+    try {
+      return super.buscaNome(text);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setProduto() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setProduto');
+    try {
+      return super.setProduto();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic teste(dynamic value) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.teste');
+    try {
+      return super.teste(value);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -110,8 +135,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return '''
 produtos: ${produtos},
 categoria: ${categoria},
-produto: ${produto},
-favorite: ${favorite}
+cart: ${cart}
     ''';
   }
 }

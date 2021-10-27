@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:catalogo/app/domain/entities/categoria.dart';
+import 'package:catalogo/app/infra/database/sqlite/connection.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
@@ -40,14 +41,14 @@ class Produto with ChangeNotifier {
         isFavorite: isFavorite ?? this.isFavorite);
   }
 
-  void toggleFavorite() {
-    if (isFavorite == 0) {
-      isFavorite = 1;
-    } else {
-      isFavorite = 0;
-    }
-    notifyListeners();
-  }
+  // void _toggleFavorite() {
+  //   if (isFavorite == 0) {
+  //     isFavorite = 1;
+  //   } else {
+  //     isFavorite = 0;
+  //   }
+  //   notifyListeners();
+  // }
 
   Produto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -70,21 +71,4 @@ class Produto with ChangeNotifier {
     data['category_id'] = this.categoryId;
     return data;
   }
-
-  // Future<void> toggleFavorite() async {
-  //   try {
-  //     _toggleFavorite();
-  //     final response = await http.patch(
-  //       Uri.parse('${Constants.PRODUTO_BASE_URL}/${id - 1}.json'),
-  //       body: jsonEncode(
-  //         {"isFavorite": isFavorite},
-  //       ),
-  //     );
-  //     if (response.statusCode >= 400) {
-  //       _toggleFavorite();
-  //     }
-  //   } catch (error) {
-  //     _toggleFavorite();
-  //   }
-  // }
 }

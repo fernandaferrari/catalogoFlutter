@@ -35,8 +35,6 @@ abstract class _CarrinhoControllerBase with Store {
   criarPedido() {
     var total = service.totalAmount;
     var id = service.idCarrinho;
-    print(total);
-    print(id);
     pedidoService.addPedido(total, id);
   }
 }

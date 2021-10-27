@@ -1,3 +1,4 @@
+import 'package:catalogo/app/domain/entities/carrinho.dart';
 import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:mobx/mobx.dart';
@@ -11,6 +12,7 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   late ProdutoService? service;
+
   late CarrinhoService? cartService;
 
   _HomeControllerBase(
@@ -27,7 +29,7 @@ abstract class _HomeControllerBase with Store {
   List<Categoria>? categoria;
 
   @observable
-  late Produto produto;
+  Map<String, CarrinhoItens>? cart = {};
 
   @action
   Future init() async {
@@ -35,22 +37,41 @@ abstract class _HomeControllerBase with Store {
     categoria = await service!.loadCategoria();
   }
 
-  @computed
-  int get favorite => produto.isFavorite;
+  @action
+  toggleIsFavorite(item) {
+    if (item.isFavorite == 0) {
+      item.isFavorite = 1;
+    } else {
+      item.isFavorite = 0;
+    }
+    service!.repositoryProduto.toggleFavorite(item);
+  }
 
   @action
-  toggleIsFavorite() {
-    if (produto.isFavorite == 0) {
-      produto.isFavorite = 1;
-    } else {
-      produto.isFavorite = 0;
+  buscaNome(text) {
+    produtos = service!.searchItens(text);
+  }
+
+  @action
+  setProduto() {
+    produtos = service!.itemProdutoAll;
+  }
+
+  @action
+  teste(value) {
+    if (value == "FilterOptions.All") {
+      produtos = service!.itemProdutoAll;
     }
-    produto = produto.copyWith(isFavorite: produto.isFavorite);
+    if (value == "FilterOptions.Favorite") {
+      produtos = service!.favoriteItems;
+    }
+    if (value == "FilterOptions.Category") {}
   }
 
   @action
   addCarrinho(produto) {
     cartService!.addItem(produto);
+    cart = cartService!.items;
   }
 
   @action

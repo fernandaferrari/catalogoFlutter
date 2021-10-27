@@ -1,5 +1,4 @@
 import 'package:catalogo/app/modules/cart/carrinho_module.dart';
-import 'package:catalogo/app/modules/gerenciarProduto/form/produto_form_module.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_module.dart';
 import 'package:catalogo/app/modules/home/home_module.dart';
 import 'package:catalogo/app/modules/orders/pedido_module.dart';
@@ -13,7 +12,7 @@ class AppModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ModuleRoute('/',
+        ModuleRoute(Modular.initialRoute,
             module: HomeModule(), transition: TransitionType.fadeIn),
         ModuleRoute("/gerenciar",
             module: GerenciadorProdutoModule(),

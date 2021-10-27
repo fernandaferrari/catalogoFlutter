@@ -10,9 +10,10 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class CategoriaScreen extends StatefulWidget {
+  BuildContext context;
   List<Categoria>? categoria;
 
-  CategoriaScreen(this.categoria);
+  CategoriaScreen(this.context);
 
   @override
   State<CategoriaScreen> createState() => _CategoriaScreenState();

@@ -48,7 +48,7 @@ class ProdutoRepositoryImpl implements IProdutoRepository {
     var sql;
     if (produto.id == null) {
       sql =
-          'INSERT INTO produto(name, description, photo, price, category_id, isFavorite) VALUES (?,?,?,?,?,?)';
+          'INSERT INTO produto(name, description, photo, price, id_category, isFavorite) VALUES (?,?,?,?,?,?)';
       _db.rawInsert(sql, [
         produto.name,
         produto.description,
@@ -59,7 +59,7 @@ class ProdutoRepositoryImpl implements IProdutoRepository {
       ]);
     } else {
       sql =
-          'UPDATE produto SET name=?, description=?, photo=?, price=?, category_id=?, isFavorite=? WHERE id=?';
+          'UPDATE produto SET name=?, description=?, photo=?, price=?, id_category=?, isFavorite=? WHERE id=?';
       _db.rawUpdate(sql, [
         produto.name,
         produto.description,
@@ -69,6 +69,19 @@ class ProdutoRepositoryImpl implements IProdutoRepository {
         produto.isFavorite,
         produto.id,
       ]);
+    }
+  }
+
+  toggleFavorite(Produto produto) async {
+    try {
+      var _db = await Connection.instance.database;
+      var sql = 'UPDATE produto SET isFavorite=? WHERE id=?';
+      _db.rawUpdate(sql, [
+        produto.isFavorite,
+        produto.id,
+      ]);
+    } catch (error) {
+      return error;
     }
   }
 }

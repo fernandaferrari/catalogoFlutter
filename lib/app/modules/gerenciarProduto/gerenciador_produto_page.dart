@@ -69,7 +69,7 @@ class _GerenciadorProdutoPageState
                               icon: Icon(Icons.edit),
                               color: Theme.of(context).primaryColor,
                               onPressed: () {
-                                Modular.to.pushNamed("/gerenciar/formulario");
+                                Modular.to.pushNamed("./formulario");
                               },
                             ),
                             IconButton(
@@ -97,10 +97,8 @@ class _GerenciadorProdutoPageState
                                 ).then((value) async {
                                   if (value ?? false) {
                                     try {
-                                      // await Provider.of<ProdutoService>(
-                                      //   context,
-                                      //   listen: false,
-                                      // ).removeProduto(produto);
+                                      await controller.service
+                                          .removeProduto(produto);
                                     } on HttpException catch (error) {
                                       msg.showSnackBar(
                                         SnackBar(

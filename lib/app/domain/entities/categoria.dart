@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Categoria with ChangeNotifier {
-  late int id;
-  late String name;
+class Categoria {
+  int? id;
+  String? name;
 
-  Categoria({required this.id, required this.name});
+  Categoria({this.id, this.name});
 
   Categoria.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -20,6 +20,6 @@ class Categoria with ChangeNotifier {
 
   @override
   String toString() {
-    return id.toString() + "-" + name;
+    return id.toString() + "-" + name!;
   }
 }

@@ -26,6 +26,22 @@ mixin _$GerenciadorProdutoController
     });
   }
 
+  final _$itemCategoriaAtom =
+      Atom(name: '_GerenciadorProdutoControllerBase.itemCategoria');
+
+  @override
+  List<Categoria>? get itemCategoria {
+    _$itemCategoriaAtom.reportRead();
+    return super.itemCategoria;
+  }
+
+  @override
+  set itemCategoria(List<Categoria>? value) {
+    _$itemCategoriaAtom.reportWrite(value, super.itemCategoria, () {
+      super.itemCategoria = value;
+    });
+  }
+
   final _$initAsyncAction =
       AsyncAction('_GerenciadorProdutoControllerBase.init');
 
@@ -34,10 +50,26 @@ mixin _$GerenciadorProdutoController
     return _$initAsyncAction.run(() => super.init());
   }
 
+  final _$_GerenciadorProdutoControllerBaseActionController =
+      ActionController(name: '_GerenciadorProdutoControllerBase');
+
+  @override
+  dynamic categoria() {
+    final _$actionInfo = _$_GerenciadorProdutoControllerBaseActionController
+        .startAction(name: '_GerenciadorProdutoControllerBase.categoria');
+    try {
+      return super.categoria();
+    } finally {
+      _$_GerenciadorProdutoControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-itemProduto: ${itemProduto}
+itemProduto: ${itemProduto},
+itemCategoria: ${itemCategoria}
     ''';
   }
 }

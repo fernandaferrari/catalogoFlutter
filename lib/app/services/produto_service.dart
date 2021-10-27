@@ -20,6 +20,10 @@ class ProdutoService with ChangeNotifier {
   List<Produto> _itensProduto = [];
   ProdutoService(this.repositoryProduto);
 
+  //Variavel list sempre com todos os produtos
+  List<Produto> _itemAll = [];
+  List<Produto> get itemProdutoAll => [..._itemAll];
+
   //getter e setter Produto
   List<Produto> get itemProduto => [..._itensProduto];
   setItensProduto(newItens) {
@@ -36,27 +40,31 @@ class ProdutoService with ChangeNotifier {
   List<String> get teste => itemCategoria.map((e) => e.id.toString()).toList();
 
   Future<List<Produto>> loadProducts() async {
+    _itemAll = await repositoryProduto.AllProdutos();
     return _itensProduto = await repositoryProduto.AllProdutos();
   }
 
-  Future loadCategoria() async {
-    _itemCategoria = await repositoryCategoria.AllCategoria();
-    notifyListeners();
+  Future<List<Categoria>> loadCategoria() async {
+    return _itemCategoria = await repositoryCategoria.AllCategoria();
   }
 
-  // //filtro favoritos
-  // List<Produto> get favoriteItems =>
-  //     itemProduto.where((prod) => prod.isFavorite).toList();
+  //filtro favoritos
+  List<Produto> get favoriteItems =>
+      itemProduto.where((prod) => prod.isFavorite == 1).toList();
 
   //busca por nome
-  searchItens(String text) {
-    List<Produto> _teste = _itensProduto.where((item) {
-      final titleLower = item.name!.toLowerCase();
-      final searchLower = text.toLowerCase();
-      return titleLower.contains(searchLower);
-    }).toList();
-    setItensProduto(_teste);
-    notifyListeners();
+  List<Produto> searchItens(String text) {
+    if (text == "") {
+      return _itemAll;
+    } else {
+      List<Produto> _teste = _itensProduto.where((item) {
+        final titleLower = item.name!.toLowerCase();
+        final searchLower = text.toLowerCase();
+        return titleLower.contains(searchLower);
+      }).toList();
+      setItensProduto(_teste);
+      return _itensProduto;
+    }
   }
 
   //busca por categoria
@@ -65,5 +73,9 @@ class ProdutoService with ChangeNotifier {
         _itensProduto.where((item) => item.categoryId == cat.id).toList();
     setItensProduto(_produto);
     notifyListeners();
+  }
+
+  removeProduto(Produto produto) {
+    repositoryProduto.remove(produto.id!);
   }
 }

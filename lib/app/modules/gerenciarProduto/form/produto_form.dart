@@ -1,5 +1,6 @@
+import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/domain/entities/produto.dart';
-import 'package:catalogo/app/modules/gerenciarProduto/components/custom_text_field.dart';
+import 'package:catalogo/app/modules/gerenciarProduto/form/components/custom_text_field.dart';
 import 'package:catalogo/app/modules/gerenciarProduto/gerenciador_produto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo/app/services/produto_service.dart';
@@ -146,10 +147,11 @@ class _ProdutoFormularioState
                   }),
               Divider(),
               CategoriaDropDownInput<String>(
-                onSaved: (category) =>
-                    _formData.categoryId = int.parse(_itemSelecionado),
+                onSaved: (category) {
+                  _formData.categoryId = int.parse(_itemSelecionado);
+                },
                 hintText: "Selecione Categoria",
-                options: ['1', '2'],
+                options: controller.categoria(),
                 value: _itemSelecionado,
                 onChanged: (category) {
                   dropDownItemSelected(category!);
