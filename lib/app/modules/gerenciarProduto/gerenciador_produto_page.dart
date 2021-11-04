@@ -98,8 +98,9 @@ class _GerenciadorProdutoPageState
                                 ).then((value) async {
                                   if (value ?? false) {
                                     try {
-                                      await controller.service
-                                          .removeProduto(produto);
+                                      await controller
+                                          .excluirProduto(produto.id);
+                                      setState(() {});
                                     } on HttpException catch (error) {
                                       msg.showSnackBar(
                                         SnackBar(

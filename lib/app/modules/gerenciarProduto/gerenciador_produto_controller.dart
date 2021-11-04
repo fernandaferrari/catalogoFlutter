@@ -26,6 +26,17 @@ abstract class _GerenciadorProdutoControllerBase with Store {
     itemCategoria = await service.loadCategoria();
   }
 
+  buscaCategoria(item) {
+    String teste = item;
+    var result = teste.substring(0, 1);
+    return result;
+  }
+
+  @action
+  reloadProdutos() async {
+    itemProduto = await service.loadProducts();
+  }
+
   @action
   categoria() {
     var item = service.itemCategoria;
@@ -36,5 +47,11 @@ abstract class _GerenciadorProdutoControllerBase with Store {
     });
 
     return cat;
+  }
+
+  @action
+  excluirProduto(id) {
+    service.repositoryProduto.remove(id);
+    reloadProdutos();
   }
 }

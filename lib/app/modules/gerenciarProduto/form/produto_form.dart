@@ -68,6 +68,22 @@ class _ProdutoFormularioState
 
     try {
       await controller.service.repositoryProduto.save(_formData);
+      await showDialog<void>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('Deu tudo certo!'),
+          content: Text('ok'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Ok'),
+            )
+          ],
+        ),
+      );
+      await controller.reloadProdutos();
     } catch (e) {
       await showDialog<void>(
         context: context,
@@ -171,7 +187,8 @@ class _ProdutoFormularioState
               Divider(),
               CategoriaDropDownInput<String>(
                 onSaved: (category) {
-                  _formData.categoryId = int.parse(_itemSelecionado);
+                  var teste = controller.buscaCategoria(_itemSelecionado);
+                  _formData.categoryId = int.parse(teste);
                 },
                 hintText: "Selecione Categoria",
                 options: controller.categoria(),
