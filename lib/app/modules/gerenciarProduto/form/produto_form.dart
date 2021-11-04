@@ -167,7 +167,9 @@ class _ProdutoFormularioState
                   }),
               Divider(),
               CustomTextField(
-                  initialValue: (_formData.price).toString(),
+                  initialValue: (_formData.price).toString() == 'null'
+                      ? ''
+                      : (_formData.price).toString(),
                   label: 'Valor',
                   descText: 'Digite o valor..',
                   onSaved: (price) =>
