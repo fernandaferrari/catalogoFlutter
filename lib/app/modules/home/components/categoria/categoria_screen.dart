@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 
 class CategoriaScreen extends StatefulWidget {
   BuildContext context;
-  List<Categoria>? categoria;
 
   CategoriaScreen(this.context);
 
@@ -33,12 +32,14 @@ class _CategoriaScreenState
               shrinkWrap: true,
               itemCount: controller.categoria!.length,
               itemBuilder: (context, index) {
+                var item = controller.categoria![index];
                 return ListTile(
                   title: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                      onTap: () {
+                        controller.buscarCategoria(item);
+                        Navigator.pop(context);
+                      },
+                      child: Text(item.name.toString())),
                 );
               });
         }),

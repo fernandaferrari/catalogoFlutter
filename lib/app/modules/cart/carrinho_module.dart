@@ -4,6 +4,7 @@ import 'package:catalogo/app/modules/cart/cart_page.dart';
 import 'package:catalogo/app/services/carrinho_service.dart';
 import 'package:catalogo/app/services/pedido_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart';
 
 class CarrinhoModule extends Module {
   @override

@@ -28,7 +28,6 @@ class ProdutoService with ChangeNotifier {
   List<Produto> get itemProduto => [..._itensProduto];
   setItensProduto(newItens) {
     _itensProduto = newItens;
-    notifyListeners();
   }
 
   //getter e setter Categoria
@@ -44,7 +43,7 @@ class ProdutoService with ChangeNotifier {
     return _itensProduto = await repositoryProduto.AllProdutos();
   }
 
-  Future<List<Categoria>> loadCategoria() async {
+  Future loadCategoria() async {
     return _itemCategoria = await repositoryCategoria.AllCategoria();
   }
 
@@ -72,7 +71,7 @@ class ProdutoService with ChangeNotifier {
     List<Produto> _produto =
         _itensProduto.where((item) => item.categoryId == cat.id).toList();
     setItensProduto(_produto);
-    notifyListeners();
+    return itemProduto;
   }
 
   removeProduto(Produto produto) {

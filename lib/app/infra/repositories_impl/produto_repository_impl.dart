@@ -22,7 +22,7 @@ class ProdutoRepositoryImpl implements IProdutoRepository {
           description: item['description'],
           photo: item['photo'],
           price: item['price'],
-          categoryId: item['category_id'],
+          categoryId: item['id_category'],
           isFavorite: item['isFavorite']);
     });
 

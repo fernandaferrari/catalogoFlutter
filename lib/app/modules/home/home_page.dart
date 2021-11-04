@@ -25,6 +25,20 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    showAlertDialog(BuildContext context) {
+      // set up the button
+      Widget okButton = TextButton(
+        child: Text("OK"),
+        onPressed: () {},
+      );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CategoriaScreen(context);
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Catálogo'),
@@ -62,8 +76,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 value: FilterOptions.All,
               ),
               PopupMenuItem(
-                child: Text('Categoria'),
                 value: FilterOptions.Category,
+                child: TextButton(
+                    onPressed: () => showAlertDialog(context),
+                    child: Text(
+                      'Categoria',
+                      style: TextStyle(fontSize: 16),
+                    )),
                 // onTap: () => showDialog(
                 //     context: context,
                 //     builder: (_) => CategoriaScreen(context)))

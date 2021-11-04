@@ -34,6 +34,21 @@ class _PedidosScreenState
               child: Text('Ocorreu um erro'),
             );
           } else {
+            if (controller.pedidos == null) {
+              return Center(
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Text('Tente novamente!'),
+                ),
+              );
+            }
+
+            if (controller.pedidos!.isEmpty) {
+              return Center(
+                child: Text("Nenhum dado encontrado!!"),
+              );
+            }
+
             return Observer(
               builder: (_) => ListView.builder(
                   itemCount: controller.pedidos!.length,

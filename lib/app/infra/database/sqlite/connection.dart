@@ -1,3 +1,5 @@
+import 'package:catalogo/app/domain/entities/categoria.dart';
+import 'package:catalogo/app/infra/api_repository/api_categoria_repository.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -6,13 +8,13 @@ import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:catalogo/app/infra/api_repository/api_produto_repository.dart';
 
 class Connection {
+  ApiCategoriaRepository cat;
   ApiProdutoRepository repository;
 
-  Connection(
-    this.repository,
-  );
+  Connection(this.repository, this.cat);
 
-  static final Connection instance = Connection(ApiProdutoRepository(Client()));
+  static final Connection instance = Connection(
+      ApiProdutoRepository(Client()), ApiCategoriaRepository(Client()));
 
   static Database? _database;
 
@@ -32,11 +34,17 @@ class Connection {
   }
 
   _onCreate(db, version) async {
-    await db.execute(produto);
     await db.execute(categoria);
-    await db.execute(carrinho);
-    await db.execute(pedido);
+    await db.execute(produto);
+    await setCategoria(db);
     await setupProdutos(db);
+  }
+
+  setCategoria(db) async {
+    var _item = await cat.AllCategoria();
+    for (Categoria categoria in _item) {
+      db.insert('categoria', {'id': categoria.id, 'name': categoria.name});
+    }
   }
 
   setupProdutos(db) async {
@@ -71,25 +79,6 @@ class Connection {
   CREATE TABLE categoria(
     id INTEGER PRIMARY KEY,
     name TEXT
-  );
-  ''';
-
-  String get carrinho => '''
-  CREATE TABLE carrinho(
-    id INTEGER PRIMARY KEY,
-    id_produto INTEGER,
-    quantity INTEGER,
-    FOREIGN KEY(id_produto) REFERENCES produto(id) ON DELETE CASCADE
-  );
-  ''';
-
-  String get pedido => '''
-  CREATE TABLE pedido(
-    id INTEGER PRIMARY KEY,
-    total REAL,
-    date DATETIME,
-    id_carrinho STRING,
-    FOREIGN KEY(id_carrinho) REFERENCES carrinho(id) ON DELETE CASCADE
   );
   ''';
 }

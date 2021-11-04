@@ -26,7 +26,7 @@ abstract class _HomeControllerBase with Store {
   List<Produto>? produtos;
 
   @observable
-  List<Categoria>? categoria;
+  List<Categoria>? categoria = [];
 
   @observable
   Map<String, CarrinhoItens>? cart = {};
@@ -77,5 +77,10 @@ abstract class _HomeControllerBase with Store {
   @action
   removeUmItem(id) {
     cartService!.removeSingleItem(id);
+  }
+
+  @action
+  buscarCategoria(cat) {
+    produtos = service!.produtoCategory(cat);
   }
 }
