@@ -15,6 +15,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends ModularState<CartPage, CarrinhoController> {
   @override
   Widget build(BuildContext context) {
+    final CarrinhoService cart = controller.service;
     return Scaffold(
         appBar: AppBar(
           title: Text('Carrinho'),
@@ -43,10 +44,10 @@ class _CartPageState extends ModularState<CartPage, CarrinhoController> {
                     Spacer(),
                     FlatButton(
                       onPressed: () {
-                        // controller.pedidoService.addPedido(controller.carrinho,
-                        //     controller.service.totalAmount);
-                        controller.criarPedido();
-                        controller.carrinho!.clear();
+                        controller.criarPedido(cart);
+                        cart.clear();
+                        controller.service.clear();
+                        setState(() {});
                       },
                       child: Text('Comprar'),
                       textColor: Theme.of(context).primaryColor,
@@ -126,9 +127,10 @@ class _CartPageState extends ModularState<CartPage, CarrinhoController> {
                           padding: EdgeInsets.all(9),
                           child: ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(item.photo),
+                              backgroundImage:
+                                  NetworkImage(item.price.toString()),
                             ),
-                            title: Text(item.name),
+                            title: Text(item.title),
                             subtitle: Text(
                                 'Total: R\$ ${item.price * item.quantity}'),
                             trailing: Text('${item.quantity}x'),

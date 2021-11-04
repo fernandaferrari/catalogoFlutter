@@ -1,10 +1,4 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:catalogo/app/infra/database/sqlite/connection.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:sqflite/sqflite.dart';
 
 import 'package:catalogo/app/domain/entities/produto.dart';
 import 'package:catalogo/app/domain/interfaces/produto_repository.dart';

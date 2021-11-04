@@ -11,7 +11,8 @@ class ApiCategoriaRepository {
 
   Future<List<Categoria>> AllCategoria() async {
     List<Categoria> _items = [];
-    final response = await client.get(Uri.parse('${Constants.BASE_CATEGORIA}'));
+    final response =
+        await client.get(Uri.parse('https://pastebin.com/raw/nE1gbL9r'));
     try {
       List<dynamic> data = jsonDecode(response.body);
       data.forEach((productData) {

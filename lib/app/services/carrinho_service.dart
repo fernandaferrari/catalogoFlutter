@@ -6,23 +6,10 @@ import 'package:catalogo/app/infra/repositories_impl/carrinho_repository_impl.da
 import 'package:flutter/material.dart';
 
 class CarrinhoService with ChangeNotifier {
-  CarrinhoRepository repository;
-
-  CarrinhoService(this.repository);
-
   Map<String, CarrinhoItens> _items = {};
 
   Map<String, CarrinhoItens> get items {
     return {..._items};
-  }
-
-  int get idCarrinho {
-    int id = 0;
-    _items.forEach((key, cartItem) {
-      id = cartItem.id;
-    });
-
-    return id;
   }
 
   int get itemsCount {
@@ -38,57 +25,57 @@ class CarrinhoService with ChangeNotifier {
     return total;
   }
 
-  void addItem(Produto produto) {
-    if (_items.containsKey(produto.id.toString())) {
+  void addItem(Produto product) {
+    if (_items.containsKey(product.id)) {
       _items.update(
-          (produto.id).toString(),
+          product.id.toString(),
           (existingItem) => CarrinhoItens(
-              //para atualizar quando ja existe um item no carrinho
-              id: existingItem.id,
-              produtoId: existingItem.produtoId,
-              name: existingItem.name,
-              quantity: existingItem.quantity + 1,
-              price: existingItem.price,
-              photo: existingItem.photo));
+                //para atualizar quando ja existe um item no carrinho
+                id: existingItem.id,
+                productId: existingItem.productId,
+                title: existingItem.title,
+                quantity: existingItem.quantity + 1,
+                price: existingItem.price,
+              ));
     } else {
       _items.putIfAbsent(
         //Adiciona o primeiro item
-        (produto.id).toString(),
+        product.id.toString(),
         () => CarrinhoItens(
-            id: Random().nextInt(1000),
-            produtoId: (produto.id!).toInt(),
-            name: produto.name!,
-            quantity: 1,
-            price: produto.price!,
-            photo: produto.photo!),
+          id: Random().nextDouble().toString(),
+          productId: product.id.toString(),
+          title: product.name.toString(),
+          quantity: 1,
+          price: product.price!.toDouble(),
+        ),
       );
     }
     notifyListeners();
   }
 
-  void removeItem(String produtoId) {
-    _items.remove(produtoId);
+  void removeItem(String productId) {
+    _items.remove(productId);
     notifyListeners();
   }
 
-  void removeSingleItem(String produtoId) {
-    if (!_items.containsKey(produtoId)) {
+  void removeSingleItem(String productId) {
+    if (!_items.containsKey(productId)) {
       return;
     }
 
-    if (_items[produtoId]?.quantity == 1) {
-      _items.remove(produtoId);
+    if (_items[productId]?.quantity == 1) {
+      _items.remove(productId);
     } else {
       _items.update(
-        (produtoId).toString(),
+        productId,
         (existingItem) => CarrinhoItens(
-            //para atualizar quando ja existe um item no carrinho
-            id: existingItem.id,
-            produtoId: existingItem.produtoId,
-            name: existingItem.name,
-            quantity: existingItem.quantity - 1,
-            price: existingItem.price,
-            photo: existingItem.photo),
+          //para atualizar quando ja existe um item no carrinho
+          id: existingItem.id,
+          productId: existingItem.productId,
+          title: existingItem.title,
+          quantity: existingItem.quantity - 1,
+          price: existingItem.price,
+        ),
       );
     }
     notifyListeners();

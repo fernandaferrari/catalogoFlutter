@@ -15,7 +15,8 @@ abstract class _PedidoControllerBase with Store {
   @observable
   List<Pedido>? pedidos;
 
-  _init() async {
+  @action
+  Future _init() async {
     pedidos = await service.loadPedidos();
   }
 }

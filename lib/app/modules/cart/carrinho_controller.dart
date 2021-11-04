@@ -32,9 +32,7 @@ abstract class _CarrinhoControllerBase with Store {
   }
 
   @action
-  criarPedido() {
-    var total = service.totalAmount;
-    var id = service.idCarrinho;
-    pedidoService.addPedido(total, id);
+  criarPedido(CarrinhoService cart) {
+    pedidoService.addPedido(cart);
   }
 }

@@ -1,17 +1,14 @@
 import 'package:catalogo/app/domain/entities/carrinho.dart';
 
 class Pedido {
-  int? id;
-  double? total;
-  DateTime? date;
-  int? id_carrinho;
-  List<CarrinhoItens>? produtos = [];
+  final String id;
+  final double total;
+  final List<CarrinhoItens> products;
+  final DateTime date;
 
-  Pedido({
-    this.id,
-    this.total,
-    this.date,
-    this.id_carrinho,
-    this.produtos,
-  });
+  Pedido(
+      {required this.id,
+      required this.total,
+      required this.products,
+      required this.date});
 }

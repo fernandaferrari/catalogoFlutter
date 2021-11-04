@@ -50,11 +50,11 @@ mixin _$CarrinhoController on _CarrinhoControllerBase, Store {
       ActionController(name: '_CarrinhoControllerBase');
 
   @override
-  dynamic criarPedido() {
+  dynamic criarPedido(CarrinhoService cart) {
     final _$actionInfo = _$_CarrinhoControllerBaseActionController.startAction(
         name: '_CarrinhoControllerBase.criarPedido');
     try {
-      return super.criarPedido();
+      return super.criarPedido(cart);
     } finally {
       _$_CarrinhoControllerBaseActionController.endAction(_$actionInfo);
     }

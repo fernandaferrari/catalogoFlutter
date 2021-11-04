@@ -50,6 +50,14 @@ mixin _$GerenciadorProdutoController
     return _$initAsyncAction.run(() => super.init());
   }
 
+  final _$reloadProdutosAsyncAction =
+      AsyncAction('_GerenciadorProdutoControllerBase.reloadProdutos');
+
+  @override
+  Future reloadProdutos() {
+    return _$reloadProdutosAsyncAction.run(() => super.reloadProdutos());
+  }
+
   final _$_GerenciadorProdutoControllerBaseActionController =
       ActionController(name: '_GerenciadorProdutoControllerBase');
 
@@ -59,6 +67,18 @@ mixin _$GerenciadorProdutoController
         .startAction(name: '_GerenciadorProdutoControllerBase.categoria');
     try {
       return super.categoria();
+    } finally {
+      _$_GerenciadorProdutoControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic excluirProduto(dynamic id) {
+    final _$actionInfo = _$_GerenciadorProdutoControllerBaseActionController
+        .startAction(name: '_GerenciadorProdutoControllerBase.excluirProduto');
+    try {
+      return super.excluirProduto(id);
     } finally {
       _$_GerenciadorProdutoControllerBaseActionController
           .endAction(_$actionInfo);

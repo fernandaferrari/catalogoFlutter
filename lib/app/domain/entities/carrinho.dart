@@ -1,20 +1,15 @@
 class CarrinhoItens {
-  final int id;
-  final int produtoId;
-  final String name;
+  final String id;
+  final String productId;
+  final String title;
   final int quantity;
-  final num price;
-  final String photo;
+  final double price;
 
-  CarrinhoItens(
-      {required this.id,
-      required this.produtoId,
-      required this.name,
-      required this.quantity,
-      required this.price,
-      required this.photo});
-
-  get idCarrinho {
-    return id;
-  }
+  CarrinhoItens({
+    required this.id,
+    required this.productId,
+    required this.title,
+    required this.quantity,
+    required this.price,
+  });
 }

@@ -21,7 +21,7 @@ class HomeModule extends Module {
         Bind((i) =>
             HomeController(i.get<ProdutoService>(), i.get<CarrinhoService>())),
         Bind((i) => CarrinhoRepository()),
-        Bind((i) => CarrinhoService(i.get<CarrinhoRepository>())),
+        Bind((i) => CarrinhoService()),
       ];
 
   @override

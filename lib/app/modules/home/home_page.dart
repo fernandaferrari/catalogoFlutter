@@ -33,7 +33,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             if (controller.cart == null) {
               return Center(child: CircularProgressIndicator());
             }
-            print(controller.cart!.length.toString());
             return BolsaWidget(
               value: '${controller.cart!.length}',
               child: IconButton(

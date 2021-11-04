@@ -24,6 +24,13 @@ mixin _$PedidoController on _PedidoControllerBase, Store {
     });
   }
 
+  final _$_initAsyncAction = AsyncAction('_PedidoControllerBase._init');
+
+  @override
+  Future<dynamic> _init() {
+    return _$_initAsyncAction.run(() => super._init());
+  }
+
   @override
   String toString() {
     return '''

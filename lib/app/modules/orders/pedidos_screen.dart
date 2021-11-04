@@ -24,28 +24,27 @@ class _PedidosScreenState
         title: Text('Meus pedidos'),
       ),
       drawer: AppDrawer(),
-      body: Observer(builder: (ctx) {
-        if (controller.pedidos!.isEmpty) {
-          return Center(child: CircularProgressIndicator());
-        }
-        if (controller.pedidos == null) {
-          return Center(
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: Text('Tente novamente!'),
-            ),
-          );
-        }
-
-        return Observer(
-          builder: (_) => ListView.builder(
-              itemCount: controller.service.itemsCount,
-              itemBuilder: (ctx, i) {
-                var item = controller.pedidos![i];
-                return PedidoWidget(item);
-              }),
-        );
-      }),
+      body: FutureBuilder(
+        future: controller.service.loadPedidos(),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.error != null) {
+            return Center(
+              child: Text('Ocorreu um erro'),
+            );
+          } else {
+            return Observer(
+              builder: (_) => ListView.builder(
+                  itemCount: controller.pedidos!.length,
+                  itemBuilder: (ctx, i) {
+                    var item = controller.pedidos![i];
+                    return PedidoWidget(item);
+                  }),
+            );
+          }
+        },
+      ),
     );
   }
 }
