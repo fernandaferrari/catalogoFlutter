@@ -4,6 +4,10 @@ import 'package:catalogo/app/domain/entities/categoria.dart';
 import 'package:catalogo/app/infra/utils/constants.dart';
 import 'package:http/http.dart';
 
+abstract class IApiCategoriaRepository {
+  Future<List<Categoria>> AllCategoria();
+}
+
 class ApiCategoriaRepository {
   Client client;
 
