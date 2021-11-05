@@ -48,6 +48,11 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
+  loadProdutos() async {
+    produtos = await service!.loadProducts();
+  }
+
+  @action
   buscaNome(text) {
     produtos = service!.searchItens(text);
   }

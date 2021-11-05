@@ -32,95 +32,98 @@ class _GerenciadorProdutoPageState
         ],
       ),
       drawer: AppDrawer(),
-      body: Container(
-        child: Observer(builder: (_) {
-          if (controller.itemProduto == null) {
-            return Center(
-              child: FloatingActionButton(
-                onPressed: () {},
-                child: Text('Tente novamente!'),
-              ),
-            );
-          }
+      body: RefreshIndicator(
+        onRefresh: () => controller.reloadProdutos(),
+        child: Container(
+          child: Observer(builder: (_) {
+            if (controller.itemProduto == null) {
+              return Center(
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Text('Tente novamente!'),
+                ),
+              );
+            }
 
-          if (controller.itemProduto!.length == 0) {
-            return Center(
-              child: Text("Nenhum dado encontrado!!"),
-            );
-          }
+            if (controller.itemProduto!.length == 0) {
+              return Center(
+                child: Text("Nenhum dado encontrado!!"),
+              );
+            }
 
-          return ListView.builder(
-              itemCount: controller.itemProduto!.length,
-              itemBuilder: (ctx, i) {
-                var produto = controller.itemProduto![i];
+            return ListView.builder(
+                itemCount: controller.itemProduto!.length,
+                itemBuilder: (ctx, i) {
+                  var produto = controller.itemProduto![i];
 
-                return Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(produto.photo!),
-                      ),
-                      title: Text(produto.name!),
-                      trailing: Container(
-                        width: 100,
-                        child: Row(
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              color: Theme.of(context).primaryColor,
-                              onPressed: () {
-                                Modular.to.pushNamed("./formulario",
-                                    arguments: produto);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              color: Theme.of(context).errorColor,
-                              onPressed: () {
-                                showDialog<bool>(
-                                  context: context,
-                                  builder: (ctx) => AlertDialog(
-                                    title: Text('Excluir Produto'),
-                                    content: Text('Tem certeza?'),
-                                    actions: [
-                                      TextButton(
-                                        child: Text('Não'),
-                                        onPressed: () =>
-                                            Navigator.of(ctx).pop(false),
-                                      ),
-                                      TextButton(
-                                        child: Text('Sim'),
-                                        onPressed: () =>
-                                            Navigator.of(ctx).pop(true),
-                                      ),
-                                    ],
-                                  ),
-                                ).then((value) async {
-                                  if (value ?? false) {
-                                    try {
-                                      await controller
-                                          .excluirProduto(produto.id);
-                                      setState(() {});
-                                    } on HttpException catch (error) {
-                                      msg.showSnackBar(
-                                        SnackBar(
-                                          content: Text(error.toString()),
+                  return Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(produto.photo!),
+                        ),
+                        title: Text(produto.name!),
+                        trailing: Container(
+                          width: 100,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                color: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  Modular.to.pushNamed("./formulario",
+                                      arguments: produto);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                color: Theme.of(context).errorColor,
+                                onPressed: () {
+                                  showDialog<bool>(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Text('Excluir Produto'),
+                                      content: Text('Tem certeza?'),
+                                      actions: [
+                                        TextButton(
+                                          child: Text('Não'),
+                                          onPressed: () =>
+                                              Navigator.of(ctx).pop(false),
                                         ),
-                                      );
+                                        TextButton(
+                                          child: Text('Sim'),
+                                          onPressed: () =>
+                                              Navigator.of(ctx).pop(true),
+                                        ),
+                                      ],
+                                    ),
+                                  ).then((value) async {
+                                    if (value ?? false) {
+                                      try {
+                                        await controller
+                                            .excluirProduto(produto.id);
+                                        setState(() {});
+                                      } on HttpException catch (error) {
+                                        msg.showSnackBar(
+                                          SnackBar(
+                                            content: Text(error.toString()),
+                                          ),
+                                        );
+                                      }
                                     }
-                                  }
-                                });
-                              },
-                            ),
-                          ],
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Divider(),
-                  ],
-                );
-              });
-        }),
+                      Divider(),
+                    ],
+                  );
+                });
+          }),
+        ),
       ),
     );
   }
